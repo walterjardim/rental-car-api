@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 CREATE TABLE IF NOT EXISTS `cars` (
   id bigint AUTO_INCREMENT primary key,
-  "year" integer not null,
+  manufacture_year integer not null,
   license_plate varchar(50) not null,
   model varchar(50) not null,
   color varchar(20) not null

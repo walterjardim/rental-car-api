@@ -3,20 +3,26 @@ package br.org.rentalcarapi.infra.persistence.entity;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
-
-import br.org.rentalcarapi.domain.entity.Car;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Data;
 
 @Builder
 @Data
-@Table("USERS")
+@Table(name = "USERS")
+@Entity
 public class UserEntity {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String firstName;
     private String lastName;
     private String email;
@@ -24,6 +30,8 @@ public class UserEntity {
     private String login;
     private String password;
     private String phone;
-    private List<Car> cars;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<CarEntity> cars;
 
 }

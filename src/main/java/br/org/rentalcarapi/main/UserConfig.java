@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import br.org.rentalcarapi.application.gateways.UserGateway;
 import br.org.rentalcarapi.application.usecases.CreateUserInteractor;
 import br.org.rentalcarapi.infra.dto.UserDTOMapper;
+import br.org.rentalcarapi.infra.gateways.CarEntityMapper;
 import br.org.rentalcarapi.infra.gateways.UserEntityMapper;
 import br.org.rentalcarapi.infra.gateways.UserRepositoryGateway;
 import br.org.rentalcarapi.infra.persistence.repository.UserRepository;
@@ -24,13 +25,18 @@ public class UserConfig {
     }
 
     @Bean
-    UserEntityMapper userEntityMapper() {
-        return new UserEntityMapper();
+    UserEntityMapper userEntityMapper(CarEntityMapper carEntityMapper) {
+        return new UserEntityMapper(carEntityMapper);
     }
 
     @Bean
     UserDTOMapper userDTOMapper() {
         return new UserDTOMapper();
+    }
+
+    @Bean
+    CarEntityMapper carEntityMapper() {
+        return new CarEntityMapper();
     }
     
 }

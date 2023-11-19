@@ -4,17 +4,23 @@ import br.org.rentalcarapi.domain.entity.User;
 import br.org.rentalcarapi.infra.persistence.entity.UserEntity;
 
 public class UserEntityMapper {
+    private final CarEntityMapper carEntityMapper;
+
+    public UserEntityMapper(CarEntityMapper carEntityMapper) {
+        this.carEntityMapper = carEntityMapper;
+    }
+
     UserEntity toEntity(User userDomain) {
         return UserEntity
             .builder()
             .birthday(userDomain.getBirthday())
-            .cars(userDomain.getCars())
             .email(userDomain.getEmail())
             .firstName(userDomain.getFirstName())
             .lastName(userDomain.getLastName())
             .login(userDomain.getLogin())
             .password(userDomain.getPassword())
             .phone(userDomain.getPhone())
+            .cars(this.carEntityMapper.toEntityList(userDomain.getCars()))
             .build();
     }
 
@@ -27,6 +33,6 @@ public class UserEntityMapper {
             userEntity.getLogin(),
             userEntity.getPassword(),
             userEntity.getPhone(),
-            userEntity.getCars());
+            this.carEntityMapper.toDomainObjectList(userEntity.getCars()));
     }
 }
