@@ -13,6 +13,8 @@ public class UserEntityMapper {
             .firstName(userDomain.getFirstName())
             .lastName(userDomain.getLastName())
             .login(userDomain.getLogin())
+            .password(userDomain.getPassword())
+            .phone(userDomain.getPhone())
             .build();
     }
 
