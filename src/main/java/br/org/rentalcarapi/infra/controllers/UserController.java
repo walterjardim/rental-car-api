@@ -2,6 +2,7 @@ package br.org.rentalcarapi.infra.controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,26 +18,23 @@ import br.org.rentalcarapi.domain.entity.User;
 import br.org.rentalcarapi.domain.exceptions.UserAlreadyExistsException;
 import br.org.rentalcarapi.domain.exceptions.UserNotFoundException;
 import br.org.rentalcarapi.infra.dto.CreateUserRequest;
-import br.org.rentalcarapi.infra.dto.UserResponseDTO;
 import br.org.rentalcarapi.infra.dto.UserDTOMapper;
+import br.org.rentalcarapi.infra.dto.UserResponseDTO;
 import jakarta.validation.Valid;
-import jakarta.ws.rs.PathParam;
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("/users")
 @Validated
 public class UserController {
     
-    private final CreateUserInteractor createUserInteractor;
-    private final UserDTOMapper userDTOMapper;
-    private final ListUsersInteractor listUsersInteractor;
+    @Autowired
+    private CreateUserInteractor createUserInteractor;
 
-    public UserController(CreateUserInteractor createUserInteractor, UserDTOMapper userDTOMapper,
-        ListUsersInteractor listUsersInteractor) {
-        this.createUserInteractor = createUserInteractor;
-        this.userDTOMapper = userDTOMapper;
-        this.listUsersInteractor = listUsersInteractor;
-    }
+    @Autowired
+    private UserDTOMapper userDTOMapper;
+
+    @Autowired
+    private ListUsersInteractor listUsersInteractor;
 
     @PostMapping
     public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody CreateUserRequest createUserRequest) throws UserAlreadyExistsException {
