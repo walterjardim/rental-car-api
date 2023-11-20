@@ -15,6 +15,7 @@ public class UserDTOMapper {
             }
         }
         return new UserResponseDTO(
+            user.getId(),
             user.getFirstName(),
             user.getLastName(),
             user.getEmail(),

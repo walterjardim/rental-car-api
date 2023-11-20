@@ -29,6 +29,7 @@ public class UserEntityMapper {
 
     User toDomainObject(UserEntity userEntity) {
         return new User(
+            userEntity.getId(),
             userEntity.getFirstName(),
             userEntity.getLastName(),
             userEntity.getEmail(),

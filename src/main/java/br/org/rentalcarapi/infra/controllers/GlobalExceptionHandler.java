@@ -20,6 +20,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import br.org.rentalcarapi.domain.exceptions.UserAlreadyExistsException;
+import br.org.rentalcarapi.domain.exceptions.UserNotFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -57,4 +58,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
   }
+
+  @ExceptionHandler(value = { UserNotFoundException.class })
+  protected ResponseEntity<Object> handleUserNotFoundException(Exception exception) {
+    LOG.error(exception.getMessage(), exception);
+    return ResponseEntity
+        .status(HttpStatus.NOT_FOUND)
+        .body(exception.getMessage());
+  }
+
 }

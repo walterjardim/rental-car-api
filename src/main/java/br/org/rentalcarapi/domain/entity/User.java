@@ -28,6 +28,19 @@ public class User {
         this.phone = phone;
         this.cars = cars;
     }
+
+    public User(Long id, String firstName, String lastName, String email, Date birthday, String login, String password,
+            String phone, List<Car> cars) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.birthday = birthday;
+        this.login = login;
+        this.password = password;
+        this.phone = phone;
+        this.cars = cars;
+    }
     
     public Long getId() {
         return id;
