@@ -1,6 +1,7 @@
 package br.org.rentalcarapi.infra.gateways;
 
 import java.util.List;
+import java.util.Optional;
 
 import br.org.rentalcarapi.application.gateways.UserGateway;
 import br.org.rentalcarapi.domain.entity.User;
@@ -39,6 +40,12 @@ public class UserRepositoryGateway implements UserGateway {
     public List<User> findAll() {
         Iterable<UserEntity> entities = this.userRepository.findAll();
         return this.userEntityMapper.toDomainObjectList(entities);
+    }
+
+    @Override
+    public User getUserById(Long id) {
+        Optional<UserEntity> user = this.userRepository.findById(id);
+        return user.isPresent() ? this.userEntityMapper.toDomainObject(user.get()) : null;
     }
     
 }

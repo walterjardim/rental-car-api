@@ -8,5 +8,6 @@ public interface UserGateway {
     User createUser(User user);
     User getUserByEmail(String email);
     User getUserByLogin(String login);
+    User getUserById(Long id);
     List<User> findAll();
 }
