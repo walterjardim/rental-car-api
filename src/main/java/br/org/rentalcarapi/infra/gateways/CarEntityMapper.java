@@ -2,7 +2,6 @@ package br.org.rentalcarapi.infra.gateways;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReferenceArray;
 
 import br.org.rentalcarapi.domain.entity.Car;
 import br.org.rentalcarapi.infra.persistence.entity.CarEntity;

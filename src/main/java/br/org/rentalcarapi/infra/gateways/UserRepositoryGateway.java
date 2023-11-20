@@ -20,5 +20,11 @@ public class UserRepositoryGateway implements UserGateway {
         UserEntity savedUser = this.userRepository.save(userEntity);
         return this.userEntityMapper.toDomainObject(savedUser);
     }
+
+    @Override
+    public User getUserByEmail(String email) {
+        UserEntity userEntity = this.userRepository.findByEmail(email);
+        return userEntity != null ? this.userEntityMapper.toDomainObject(userEntity) : null;
+    }
     
 }
