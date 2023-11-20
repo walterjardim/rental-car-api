@@ -7,5 +7,6 @@ import br.org.rentalcarapi.infra.persistence.entity.UserEntity;
 public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
     UserEntity findByEmail(String email);
+    UserEntity findByLogin(String login);
     
 }

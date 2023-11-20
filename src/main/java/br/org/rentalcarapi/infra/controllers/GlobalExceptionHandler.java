@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import br.org.rentalcarapi.domain.exceptions.EmailAlreadyExistsException;
+import br.org.rentalcarapi.domain.exceptions.UserAlreadyExistsException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
   private final Logger LOG = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(value 
-      = { EmailAlreadyExistsException.class })
+      = { UserAlreadyExistsException.class })
     protected ResponseEntity<Object> handleUserExistsException(Exception exception) {
       LOG.error(exception.getMessage(), exception);
       return ResponseEntity

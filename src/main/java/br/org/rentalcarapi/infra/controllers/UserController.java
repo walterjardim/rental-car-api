@@ -12,7 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import br.org.rentalcarapi.application.usecases.CreateUserInteractor;
 import br.org.rentalcarapi.domain.entity.User;
-import br.org.rentalcarapi.domain.exceptions.EmailAlreadyExistsException;
+import br.org.rentalcarapi.domain.exceptions.UserAlreadyExistsException;
 import br.org.rentalcarapi.infra.dto.CreateUserRequest;
 import br.org.rentalcarapi.infra.dto.CreateUserResponse;
 import br.org.rentalcarapi.infra.dto.UserDTOMapper;
@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<CreateUserResponse> createUser(@RequestBody CreateUserRequest createUserRequest) throws EmailAlreadyExistsException {
+    public ResponseEntity<CreateUserResponse> createUser(@RequestBody CreateUserRequest createUserRequest) throws UserAlreadyExistsException {
         User createdUser = null;
         createdUser = this.createUserInteractor.createUser(this.userDTOMapper.toUser(createUserRequest));
         return ResponseEntity.ok(this.userDTOMapper.toResponse(createdUser));
