@@ -1,5 +1,9 @@
 package br.org.rentalcarapi.infra.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import br.org.rentalcarapi.domain.entity.Car;
 import br.org.rentalcarapi.domain.entity.User;
 
 public class UserDTOMapper {
@@ -15,14 +19,27 @@ public class UserDTOMapper {
     }
 
     public User toUser(CreateUserRequest createUserRequest) {
+        List<Car> cars = getCars(createUserRequest);
+        
         return new User(
-            createUserRequest.firstName(),
-            createUserRequest.lastName(),
-            createUserRequest.email(),
-            createUserRequest.birthday(),
-            createUserRequest.login(),
-            createUserRequest.password(),
-            createUserRequest.phone(),
-            createUserRequest.cars());
+            createUserRequest.getFirstName(),
+            createUserRequest.getLastName(),
+            createUserRequest.getEmail(),
+            createUserRequest.getBirthday(),
+            createUserRequest.getLogin(),
+            createUserRequest.getPassword(),
+            createUserRequest.getPhone(),
+            cars);
+    }
+
+    private List<Car> getCars(CreateUserRequest createUserRequest) {
+        List<Car> cars = new ArrayList<>();
+        if (createUserRequest.getCars() != null) {
+            for (CarDTO carDTO : createUserRequest.getCars()) {
+                cars.add(new Car(carDTO.getManufactureYear(), carDTO.getLicensePlate(), carDTO.getModel(), carDTO.getColor()));
+            }
+
+        }
+        return cars;
     }
 }
