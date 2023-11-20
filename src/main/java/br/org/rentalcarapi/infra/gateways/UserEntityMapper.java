@@ -1,5 +1,8 @@
 package br.org.rentalcarapi.infra.gateways;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.org.rentalcarapi.domain.entity.User;
 import br.org.rentalcarapi.infra.persistence.entity.UserEntity;
 
@@ -34,5 +37,14 @@ public class UserEntityMapper {
             userEntity.getPassword(),
             userEntity.getPhone(),
             this.carEntityMapper.toDomainObjectList(userEntity.getCars()));
+    }
+
+    List<User> toDomainObjectList(Iterable<UserEntity> entities) {
+        List<User> users = new ArrayList<>();
+        for (UserEntity userEntity : entities) {
+            users.add(this.toDomainObject(userEntity));
+        }
+
+        return users;
     }
 }
