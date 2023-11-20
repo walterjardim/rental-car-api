@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import br.org.rentalcarapi.application.gateways.UserGateway;
 import br.org.rentalcarapi.application.usecases.CreateUserInteractor;
+import br.org.rentalcarapi.application.usecases.ListUsersInteractor;
 import br.org.rentalcarapi.infra.dto.UserDTOMapper;
 import br.org.rentalcarapi.infra.gateways.CarEntityMapper;
 import br.org.rentalcarapi.infra.gateways.UserEntityMapper;
@@ -37,6 +38,11 @@ public class UserConfig {
     @Bean
     CarEntityMapper carEntityMapper() {
         return new CarEntityMapper();
+    }
+
+    @Bean
+    ListUsersInteractor listUsersInteractor(UserGateway userGateway) {
+        return new ListUsersInteractor(userGateway);
     }
     
 }
