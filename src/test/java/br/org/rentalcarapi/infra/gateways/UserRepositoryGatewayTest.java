@@ -97,4 +97,16 @@ public class UserRepositoryGatewayTest {
         this.userRepositoryGateway.deleteUser(1L);
         Mockito.verify(this.userRepository, Mockito.times(1)).delete(Mockito.any());
     }
+
+    @Test
+    void testUpdateUserWithSuccess() {
+        Mockito.when(this.userEntityMapper.toEntity(Mockito.any())).thenReturn(new UserEntity());
+        Mockito.when(this.userRepository.save(Mockito.any())).thenReturn(new UserEntity());
+        Mockito.when(this.userEntityMapper.toDomainObject(Mockito.any())).thenReturn(new User());
+        User user = new User();
+        user.setId(1L);
+
+        User updatedUser = this.userRepositoryGateway.updateUser(user);
+        Assertions.assertNotNull(updatedUser);
+    }
 }

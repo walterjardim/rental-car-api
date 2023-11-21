@@ -1,15 +1,14 @@
 package br.org.rentalcarapi.infra.controllers;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 import br.org.rentalcarapi.application.usecases.DeleteUserInteractor;
+import br.org.rentalcarapi.application.usecases.UpdateUserInteractor;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import br.org.rentalcarapi.application.usecases.CreateUserInteractor;
 import br.org.rentalcarapi.application.usecases.ListUsersInteractor;
 import br.org.rentalcarapi.domain.entity.User;
-import br.org.rentalcarapi.infra.dto.CreateUserRequest;
+import br.org.rentalcarapi.infra.dto.UserRequestDTO;
 import jakarta.ws.rs.core.MediaType;
 
 @SpringBootTest
@@ -45,9 +44,12 @@ public class UserControllerTest {
     @MockBean
     private DeleteUserInteractor deleteUserInteractor;
 
+    @MockBean
+    private UpdateUserInteractor updateUserInteractor;
+
     @Test
     void testCreateUserWithSuccess() throws Exception {
-        CreateUserRequest body = new CreateUserRequest("First", "Last", "email@test.com",
+        UserRequestDTO body = new UserRequestDTO(null, "First", "Last", "email@test.com",
             new Date(), "login", "1234", "81988887777", new ArrayList<>());
         
         when(this.createUserInteractor.createUser(Mockito.any())).thenReturn(new User());
@@ -80,6 +82,20 @@ public class UserControllerTest {
         Mockito.doNothing().when(this.deleteUserInteractor).deleteUser(Mockito.anyLong());
         this.mockMvc.perform(
                 delete("/api/users/1")
+        ).andExpect(status().isOk());
+    }
+
+    @Test
+    void testUpdateUserWithSuccess() throws Exception {
+        UserRequestDTO body = new UserRequestDTO(1L, "First", "Last", "email@test.com",
+                new Date(), "login", "1234", "81988887777", new ArrayList<>());
+
+        when(this.updateUserInteractor.updateUser(Mockito.any())).thenReturn(new User());
+
+        this.mockMvc.perform(
+                put("/api/users/1").
+                        contentType(MediaType.APPLICATION_JSON).
+                        content(this.objectMapper.writeValueAsString(body))
         ).andExpect(status().isOk());
     }
 }
