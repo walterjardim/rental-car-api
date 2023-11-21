@@ -5,20 +5,21 @@ import br.org.rentalcarapi.domain.entity.User;
 import br.org.rentalcarapi.domain.exceptions.UserNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class ListUsersInteractorTest {
 
-    @Autowired
+    @InjectMocks
     private ListUsersInteractor listUsersInteractor;
 
-    @MockBean
+    @Mock
     private UserGateway userGateway;
 
     @Test

@@ -45,7 +45,7 @@ public class UserRepositoryGateway implements UserGateway {
     @Override
     public User getUserById(Long id) {
         Optional<UserEntity> user = this.userRepository.findById(id);
-        return user.isPresent() ? this.userEntityMapper.toDomainObject(user.get()) : null;
+        return user.map(this.userEntityMapper::toDomainObject).orElse(null);
     }
     
 }

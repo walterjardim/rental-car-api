@@ -5,23 +5,27 @@ import br.org.rentalcarapi.domain.entity.User;
 import br.org.rentalcarapi.domain.exceptions.UserAlreadyExistsException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class CreateUserInteractorTest {
 
-    @Autowired
+    @InjectMocks
     private CreateUserInteractor createUserInteractor;
 
-    @MockBean
+    @Mock
     private UserGateway userGateway;
 
     @Test
     void testCreateUserWithSuccess() throws UserAlreadyExistsException {
         User user = new User();
+        user.setEmail("test@test.com");
+        user.setLogin("login");
+
         Mockito.when(this.userGateway.getUserByEmail(Mockito.anyString())).thenReturn(null);
         Mockito.when(this.userGateway.getUserByLogin(Mockito.anyString())).thenReturn(null);
         Mockito.when(this.userGateway.createUser(Mockito.any())).thenReturn(user);
