@@ -3,6 +3,7 @@ package br.org.rentalcarapi.infra.controllers;
 import java.util.List;
 
 import br.org.rentalcarapi.application.usecases.DeleteUserInteractor;
+import br.org.rentalcarapi.application.usecases.UpdateUserInteractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -13,7 +14,7 @@ import br.org.rentalcarapi.application.usecases.ListUsersInteractor;
 import br.org.rentalcarapi.domain.entity.User;
 import br.org.rentalcarapi.domain.exceptions.UserAlreadyExistsException;
 import br.org.rentalcarapi.domain.exceptions.UserNotFoundException;
-import br.org.rentalcarapi.infra.dto.CreateUserRequest;
+import br.org.rentalcarapi.infra.dto.UserRequestDTO;
 import br.org.rentalcarapi.infra.dto.UserDTOMapper;
 import br.org.rentalcarapi.infra.dto.UserResponseDTO;
 import jakarta.validation.Valid;
@@ -35,9 +36,12 @@ public class UserController {
     @Autowired
     private DeleteUserInteractor deleteUserInteractor;
 
+    @Autowired
+    private UpdateUserInteractor updateUserInteractor;
+
     @PostMapping
-    public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody CreateUserRequest createUserRequest) throws UserAlreadyExistsException {
-        User createdUser = this.createUserInteractor.createUser(this.userDTOMapper.toUser(createUserRequest));
+    public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody UserRequestDTO userRequestDTO) throws UserAlreadyExistsException {
+        User createdUser = this.createUserInteractor.createUser(this.userDTOMapper.toUser(userRequestDTO));
         return ResponseEntity.ok(this.userDTOMapper.toResponse(createdUser));
     }
 
@@ -57,5 +61,14 @@ public class UserController {
     public ResponseEntity<String> delete(@PathVariable Long id) throws UserNotFoundException {
         this.deleteUserInteractor.deleteUser(id);
         return ResponseEntity.ok("User deleted");
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<UserResponseDTO> update(
+            @PathVariable Long id,
+            @Valid @RequestBody UserRequestDTO userRequestDTO) throws UserNotFoundException {
+        userRequestDTO.setId(id);
+        User updatedUser = this.updateUserInteractor.updateUser(this.userDTOMapper.toUser(userRequestDTO));
+        return ResponseEntity.ok(this.userDTOMapper.toResponse(updatedUser));
     }
 }

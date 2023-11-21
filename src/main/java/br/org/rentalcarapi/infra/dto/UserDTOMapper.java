@@ -25,17 +25,18 @@ public class UserDTOMapper {
             carsDTO);
     }
 
-    public User toUser(CreateUserRequest createUserRequest) {
-        List<Car> cars = getCars(createUserRequest.getCars());
+    public User toUser(UserRequestDTO userRequestDTO) {
+        List<Car> cars = getCars(userRequestDTO.getCars());
         
         return new User(
-            createUserRequest.getFirstName(),
-            createUserRequest.getLastName(),
-            createUserRequest.getEmail(),
-            createUserRequest.getBirthday(),
-            createUserRequest.getLogin(),
-            createUserRequest.getPassword(),
-            createUserRequest.getPhone(),
+            userRequestDTO.getId(),
+            userRequestDTO.getFirstName(),
+            userRequestDTO.getLastName(),
+            userRequestDTO.getEmail(),
+            userRequestDTO.getBirthday(),
+            userRequestDTO.getLogin(),
+            userRequestDTO.getPassword(),
+            userRequestDTO.getPhone(),
             cars);
     }
 

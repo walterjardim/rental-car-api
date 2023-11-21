@@ -20,8 +20,7 @@ public class UserRepositoryGateway implements UserGateway {
     @Override
     public User createUser(User userDomainObject) {
         UserEntity userEntity = this.userEntityMapper.toEntity(userDomainObject);
-        UserEntity savedUser = this.userRepository.save(userEntity);
-        return this.userEntityMapper.toDomainObject(savedUser);
+        return this.saveUser(userEntity);
     }
 
     @Override
@@ -53,5 +52,16 @@ public class UserRepositoryGateway implements UserGateway {
         Optional<UserEntity> userToDelete = this.userRepository.findById(id);
         userToDelete.ifPresent(this.userRepository::delete);
     }
-    
+
+    @Override
+    public User updateUser(User userDomainObject) {
+        UserEntity userEntity = this.userEntityMapper.toEntity(userDomainObject);
+        userEntity.setId(userDomainObject.getId());
+        return this.saveUser(userEntity);
+    }
+
+    private User saveUser(UserEntity userEntity) {
+        UserEntity savedUser = this.userRepository.save(userEntity);
+        return this.userEntityMapper.toDomainObject(savedUser);
+    }
 }
