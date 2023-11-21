@@ -89,4 +89,12 @@ public class UserRepositoryGatewayTest {
         User user = this.userRepositoryGateway.getUserById(1L);
         Assertions.assertNull(user);
     }
+
+    @Test
+    void testDeleteUserByWithSuccess() {
+        Mockito.when(this.userRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(new UserEntity()));
+        Mockito.doNothing().when(this.userRepository).delete(Mockito.any());
+        this.userRepositoryGateway.deleteUser(1L);
+        Mockito.verify(this.userRepository, Mockito.times(1)).delete(Mockito.any());
+    }
 }

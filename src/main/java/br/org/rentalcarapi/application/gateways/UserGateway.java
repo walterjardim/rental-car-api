@@ -10,4 +10,5 @@ public interface UserGateway {
     User getUserByLogin(String login);
     User getUserById(Long id);
     List<User> findAll();
+    void deleteUser(Long id);
 }

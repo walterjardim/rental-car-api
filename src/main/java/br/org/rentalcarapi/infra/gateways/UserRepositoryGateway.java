@@ -47,5 +47,11 @@ public class UserRepositoryGateway implements UserGateway {
         Optional<UserEntity> user = this.userRepository.findById(id);
         return user.map(this.userEntityMapper::toDomainObject).orElse(null);
     }
+
+    @Override
+    public void deleteUser(Long id) {
+        Optional<UserEntity> userToDelete = this.userRepository.findById(id);
+        userToDelete.ifPresent(this.userRepository::delete);
+    }
     
 }

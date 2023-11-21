@@ -1,5 +1,6 @@
 package br.org.rentalcarapi.main;
 
+import br.org.rentalcarapi.application.usecases.DeleteUserInteractor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -44,5 +45,10 @@ public class UserConfig {
     ListUsersInteractor listUsersInteractor(UserGateway userGateway) {
         return new ListUsersInteractor(userGateway);
     }
-    
+
+    @Bean
+    DeleteUserInteractor deleteUserInteractor(UserGateway userGateway) {
+        return new DeleteUserInteractor(userGateway);
+    }
+
 }
