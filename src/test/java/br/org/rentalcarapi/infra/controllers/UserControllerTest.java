@@ -4,10 +4,12 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
 import java.util.ArrayList;
 import java.util.Date;
 
+import br.org.rentalcarapi.application.usecases.DeleteUserInteractor;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,9 @@ public class UserControllerTest {
     @MockBean
     private ListUsersInteractor listUsersInteractor;
 
+    @MockBean
+    private DeleteUserInteractor deleteUserInteractor;
+
     @Test
     void testCreateUserWithSuccess() throws Exception {
         CreateUserRequest body = new CreateUserRequest("First", "Last", "email@test.com",
@@ -48,7 +53,7 @@ public class UserControllerTest {
         when(this.createUserInteractor.createUser(Mockito.any())).thenReturn(new User());
         
         this.mockMvc.perform(
-            post("/users").
+            post("/api/users").
             contentType(MediaType.APPLICATION_JSON).
             content(this.objectMapper.writeValueAsString(body))
         ).andExpect(status().isOk());
@@ -58,7 +63,7 @@ public class UserControllerTest {
     void testFindAllUsersWihSuccess() throws Exception {
         when(this.listUsersInteractor.findAll()).thenReturn(new ArrayList<>());
         this.mockMvc.perform(
-            get("/users")
+            get("/api/users")
         ).andExpect(status().isOk());
     }
     
@@ -66,7 +71,15 @@ public class UserControllerTest {
     void testFindUserByIdWihSuccess() throws Exception {
         when(this.listUsersInteractor.findById(Mockito.anyLong())).thenReturn(new User());
         this.mockMvc.perform(
-            get("/users/1")
+            get("/api/users/1")
+        ).andExpect(status().isOk());
+    }
+
+    @Test
+    void testDeleteUserByIdWihSuccess() throws Exception {
+        Mockito.doNothing().when(this.deleteUserInteractor).deleteUser(Mockito.anyLong());
+        this.mockMvc.perform(
+                delete("/api/users/1")
         ).andExpect(status().isOk());
     }
 }
