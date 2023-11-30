@@ -13,6 +13,8 @@ import br.org.rentalcarapi.infra.gateways.CarEntityMapper;
 import br.org.rentalcarapi.infra.gateways.UserEntityMapper;
 import br.org.rentalcarapi.infra.gateways.UserRepositoryGateway;
 import br.org.rentalcarapi.infra.persistence.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class UserConfig {
@@ -23,8 +25,13 @@ public class UserConfig {
     }
 
     @Bean
-    UserGateway userGateway(UserRepository userRepository, UserEntityMapper userEntityMapper) {
-        return new UserRepositoryGateway(userRepository, userEntityMapper);
+    UserGateway userGateway(UserRepository userRepository, UserEntityMapper userEntityMapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        return new UserRepositoryGateway(userRepository, userEntityMapper, bCryptPasswordEncoder);
+    }
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
