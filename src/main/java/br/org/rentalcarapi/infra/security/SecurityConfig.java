@@ -1,5 +1,6 @@
 package br.org.rentalcarapi.infra.security;
 
+import br.org.rentalcarapi.infra.service.AuthenticationService;
 import jakarta.ws.rs.HttpMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
+@Configuration
 public class SecurityConfig {
 
     @Autowired
