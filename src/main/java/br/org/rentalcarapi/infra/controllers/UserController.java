@@ -66,7 +66,7 @@ public class UserController {
     public ResponseEntity<UserResponseDTO> update(
             @PathVariable Long id,
             @Valid @RequestBody UserRequestDTO userRequestDTO) throws UserNotFoundException {
-        userRequestDTO.setId(id);
+        userRequestDTO = userRequestDTO.withId(id);
         User updatedUser = this.updateUserInteractor.updateUser(this.userDTOMapper.toUser(userRequestDTO));
         return ResponseEntity.ok(this.userDTOMapper.toResponse(updatedUser));
     }
