@@ -26,17 +26,17 @@ public class UserDTOMapper {
     }
 
     public User toUser(UserRequestDTO userRequestDTO) {
-        List<Car> cars = getCars(userRequestDTO.getCars());
+        List<Car> cars = getCars(userRequestDTO.cars());
         
         return new User(
-            userRequestDTO.getId(),
-            userRequestDTO.getFirstName(),
-            userRequestDTO.getLastName(),
-            userRequestDTO.getEmail(),
-            userRequestDTO.getBirthday(),
-            userRequestDTO.getLogin(),
-            userRequestDTO.getPassword(),
-            userRequestDTO.getPhone(),
+            userRequestDTO.id(),
+            userRequestDTO.firstName(),
+            userRequestDTO.lastName(),
+            userRequestDTO.email(),
+            userRequestDTO.birthday(),
+            userRequestDTO.login(),
+            userRequestDTO.password(),
+            userRequestDTO.phone(),
             cars);
     }
 
@@ -44,7 +44,7 @@ public class UserDTOMapper {
         List<Car> cars = new ArrayList<>();
         if (carsDTO != null) {
             for (CarDTO carDTO : carsDTO) {
-                cars.add(new Car(carDTO.getManufactureYear(), carDTO.getLicensePlate(), carDTO.getModel(), carDTO.getColor()));
+                cars.add(new Car(carDTO.manufactureYear(), carDTO.licensePlate(), carDTO.model(), carDTO.color()));
             }
 
         }
