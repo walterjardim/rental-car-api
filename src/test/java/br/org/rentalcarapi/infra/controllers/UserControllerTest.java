@@ -7,8 +7,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.ArrayList;
 import java.util.Date;
 
-import br.org.rentalcarapi.application.usecases.DeleteUserInteractor;
-import br.org.rentalcarapi.application.usecases.UpdateUserInteractor;
+import br.org.rentalcarapi.application.usecases.impl.DeleteUserInteractor;
+import br.org.rentalcarapi.application.usecases.impl.UpdateUserInteractor;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +19,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.org.rentalcarapi.application.usecases.CreateUserInteractor;
-import br.org.rentalcarapi.application.usecases.ListUsersInteractor;
+import br.org.rentalcarapi.application.usecases.impl.CreateUserInteractor;
+import br.org.rentalcarapi.application.usecases.impl.ListUsersInteractor;
 import br.org.rentalcarapi.domain.entity.User;
 import br.org.rentalcarapi.infra.dto.UserRequestDTO;
 import jakarta.ws.rs.core.MediaType;

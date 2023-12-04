@@ -1,6 +1,7 @@
 package br.org.rentalcarapi.application.usecases;
 
 import br.org.rentalcarapi.application.gateways.UserGateway;
+import br.org.rentalcarapi.application.usecases.impl.UpdateUserInteractor;
 import br.org.rentalcarapi.domain.entity.User;
 import br.org.rentalcarapi.domain.exceptions.UserNotFoundException;
 import org.junit.jupiter.api.Assertions;
@@ -10,8 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 public class UpdateUserInteractorTest {
