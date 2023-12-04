@@ -5,6 +5,7 @@ import br.org.rentalcarapi.application.usecases.impl.DeleteUserInteractor;
 import br.org.rentalcarapi.domain.entity.User;
 import br.org.rentalcarapi.domain.exceptions.UserAlreadyExistsException;
 import br.org.rentalcarapi.domain.exceptions.UserNotFoundException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,5 +29,14 @@ public class DeleteUserInteractorTest {
 
         this.deleteUserInteractor.deleteUser(1L);
         Mockito.verify(this.userGateway, Mockito.times(1)).deleteUser(1L);
+    }
+
+    @Test
+    void testDeleteInexistentUserShouldThrowException() {
+        Mockito.when(this.userGateway.getUserById(Mockito.anyLong())).thenReturn(null);
+
+        Assertions.assertThrows(UserNotFoundException.class, () -> {
+            this.deleteUserInteractor.deleteUser(1L);
+        });
     }
 }
