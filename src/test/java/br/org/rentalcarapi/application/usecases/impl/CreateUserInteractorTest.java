@@ -1,4 +1,4 @@
-package br.org.rentalcarapi.application.usecases;
+package br.org.rentalcarapi.application.usecases.impl;
 
 import br.org.rentalcarapi.application.gateways.UserGateway;
 import br.org.rentalcarapi.application.usecases.impl.CreateUserInteractor;
@@ -34,5 +34,32 @@ public class CreateUserInteractorTest {
         User createdUser = this.createUserInteractor.createUser(user);
 
         Assertions.assertNotNull(createdUser);
+    }
+
+    @Test
+    void testCreateUserWithSameEmailShouldThrowUserAlreadyExistsException() {
+        User user = new User();
+        user.setEmail("test@test.com");
+        user.setLogin("login");
+
+        Mockito.when(this.userGateway.getUserByEmail(Mockito.anyString())).thenReturn(user);
+
+        Assertions.assertThrows(UserAlreadyExistsException.class, () -> {
+            this.createUserInteractor.createUser(user);
+        });
+    }
+
+    @Test
+    void testCreateUserWithSameLoginShouldThrowUserAlreadyExistsException() {
+        User user = new User();
+        user.setEmail("test@test.com");
+        user.setLogin("login");
+
+        Mockito.when(this.userGateway.getUserByEmail(Mockito.anyString())).thenReturn(null);
+        Mockito.when(this.userGateway.getUserByLogin(Mockito.anyString())).thenReturn(user);
+
+        Assertions.assertThrows(UserAlreadyExistsException.class, () -> {
+            this.createUserInteractor.createUser(user);
+        });
     }
 }

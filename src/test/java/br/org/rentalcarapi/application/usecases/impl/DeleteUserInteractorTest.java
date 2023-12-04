@@ -1,4 +1,4 @@
-package br.org.rentalcarapi.application.usecases;
+package br.org.rentalcarapi.application.usecases.impl;
 
 import br.org.rentalcarapi.application.gateways.UserGateway;
 import br.org.rentalcarapi.application.usecases.impl.DeleteUserInteractor;
