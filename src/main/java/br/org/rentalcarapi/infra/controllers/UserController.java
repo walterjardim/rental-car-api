@@ -1,43 +1,42 @@
 package br.org.rentalcarapi.infra.controllers;
 
-import java.util.List;
-
-import br.org.rentalcarapi.application.usecases.DeleteUserInteractor;
-import br.org.rentalcarapi.application.usecases.UpdateUserInteractor;
+import br.org.rentalcarapi.application.usecases.ICreateUserInteractor;
+import br.org.rentalcarapi.application.usecases.IDeleteUserInteractor;
+import br.org.rentalcarapi.application.usecases.IListUsersInteractor;
+import br.org.rentalcarapi.application.usecases.IUpdateUserInteractor;
+import br.org.rentalcarapi.domain.entity.User;
+import br.org.rentalcarapi.domain.exceptions.UserAlreadyExistsException;
+import br.org.rentalcarapi.domain.exceptions.UserNotFoundException;
+import br.org.rentalcarapi.infra.dto.UserDTOMapper;
+import br.org.rentalcarapi.infra.dto.UserRequestDTO;
+import br.org.rentalcarapi.infra.dto.UserResponseDTO;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import br.org.rentalcarapi.application.usecases.CreateUserInteractor;
-import br.org.rentalcarapi.application.usecases.ListUsersInteractor;
-import br.org.rentalcarapi.domain.entity.User;
-import br.org.rentalcarapi.domain.exceptions.UserAlreadyExistsException;
-import br.org.rentalcarapi.domain.exceptions.UserNotFoundException;
-import br.org.rentalcarapi.infra.dto.UserRequestDTO;
-import br.org.rentalcarapi.infra.dto.UserDTOMapper;
-import br.org.rentalcarapi.infra.dto.UserResponseDTO;
-import jakarta.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
 @Validated
 public class UserController {
-    
+
     @Autowired
-    private CreateUserInteractor createUserInteractor;
+    private ICreateUserInteractor createUserInteractor;
 
     @Autowired
     private UserDTOMapper userDTOMapper;
 
     @Autowired
-    private ListUsersInteractor listUsersInteractor;
+    private IListUsersInteractor listUsersInteractor;
 
     @Autowired
-    private DeleteUserInteractor deleteUserInteractor;
+    private IDeleteUserInteractor deleteUserInteractor;
 
     @Autowired
-    private UpdateUserInteractor updateUserInteractor;
+    private IUpdateUserInteractor updateUserInteractor;
 
     @PostMapping
     public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody UserRequestDTO userRequestDTO) throws UserAlreadyExistsException {

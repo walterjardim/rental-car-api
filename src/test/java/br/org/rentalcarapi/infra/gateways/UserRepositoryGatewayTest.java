@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,9 @@ public class UserRepositoryGatewayTest {
     @Mock
     private UserEntityMapper userEntityMapper;
 
+    @Mock
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @InjectMocks
     private UserRepositoryGateway userRepositoryGateway;
 
@@ -30,9 +34,12 @@ public class UserRepositoryGatewayTest {
     void testCreateUserWithSuccess() {
         Mockito.when(this.userEntityMapper.toEntity(Mockito.any())).thenReturn(new UserEntity());
         Mockito.when(this.userRepository.save(Mockito.any())).thenReturn(new UserEntity());
-        Mockito.when(this.userEntityMapper.toDomainObject(Mockito.any())).thenReturn(new User());
+        User userDomainObject = new User();
+        userDomainObject.setPassword("password");
+        Mockito.when(this.userEntityMapper.toDomainObject(Mockito.any())).thenReturn(userDomainObject);
+        Mockito.when(this.bCryptPasswordEncoder.encode(Mockito.anyString())).thenReturn("encoded");
 
-        User user = this.userRepositoryGateway.createUser(new User());
+        User user = this.userRepositoryGateway.createUser(userDomainObject);
 
         Assertions.assertNotNull(user);
     }

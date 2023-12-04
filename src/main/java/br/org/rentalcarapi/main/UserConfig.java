@@ -1,20 +1,19 @@
 package br.org.rentalcarapi.main;
 
-import br.org.rentalcarapi.application.usecases.DeleteUserInteractor;
-import br.org.rentalcarapi.application.usecases.UpdateUserInteractor;
+import br.org.rentalcarapi.application.usecases.impl.DeleteUserInteractor;
+import br.org.rentalcarapi.application.usecases.impl.UpdateUserInteractor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import br.org.rentalcarapi.application.gateways.UserGateway;
-import br.org.rentalcarapi.application.usecases.CreateUserInteractor;
-import br.org.rentalcarapi.application.usecases.ListUsersInteractor;
+import br.org.rentalcarapi.application.usecases.impl.CreateUserInteractor;
+import br.org.rentalcarapi.application.usecases.impl.ListUsersInteractor;
 import br.org.rentalcarapi.infra.dto.UserDTOMapper;
 import br.org.rentalcarapi.infra.gateways.CarEntityMapper;
 import br.org.rentalcarapi.infra.gateways.UserEntityMapper;
 import br.org.rentalcarapi.infra.gateways.UserRepositoryGateway;
 import br.org.rentalcarapi.infra.persistence.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class UserConfig {
