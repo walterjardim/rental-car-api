@@ -1,18 +1,14 @@
 package br.org.rentalcarapi.infra.gateways;
 
 import br.org.rentalcarapi.domain.entity.Car;
-import br.org.rentalcarapi.domain.entity.User;
 import br.org.rentalcarapi.infra.persistence.entity.CarEntity;
-import br.org.rentalcarapi.infra.persistence.entity.UserEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)

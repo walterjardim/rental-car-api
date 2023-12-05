@@ -98,6 +98,8 @@
 						<exclude>br/org/rentalcarapi/infra/security/*.class</exclude>
 						<exclude>br/org/rentalcarapi/infra/service/AuthenticationService.class</exclude>
 						<exclude>br/org/rentalcarapi/main/*.class</exclude>
+						<exclude>br/org/rentalcarapi/RentalCarApiApplication.class</exclude>
+						<exclude>br/org/rentalcarapi/infra/dto/*DTO.class</exclude>
 					</excludes>
 				</configuration>
 				<executions>
